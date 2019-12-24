@@ -9,41 +9,41 @@ namespace Repository.Repository
     public class UnitOfWork : IDisposable
     {
         private ModelContext context = new ModelContext();
-        private GenericRepository<User> userRepository;
-        private GenericRepository<Role> roleRepository;
-        private GenericRepository<Address> addressRepository;
+        private UserRepository userRepository;
+        private RoleRepository roleRepository;
+        private AddressRepository addressRepository;
 
-        public GenericRepository<User> UserRepository
+        public UserRepository UserRepository
         {
             get
             {
                 if(this.userRepository == null)
                 {
-                    this.userRepository = new GenericRepository<User>(context);
+                    this.userRepository = new UserRepository(context);
                 }
                 return userRepository;
             }
         }
 
-        public GenericRepository<Role> RoleRepository
+        public RoleRepository RoleRepository
         {
             get
             {
                 if(this.roleRepository == null)
                 {
-                    this.roleRepository = new GenericRepository<Role>(context);
+                    this.roleRepository = new RoleRepository(context);
                 }
                 return roleRepository;
             }
         }
 
-        public GenericRepository<Address> AddressRepository
+        public AddressRepository AddressRepository
         {
             get
             {
                 if(this.addressRepository == null)
                 {
-                    this.addressRepository = new GenericRepository<Address>(context);
+                    this.addressRepository = new AddressRepository(context);
                 }
                 return addressRepository;
             }

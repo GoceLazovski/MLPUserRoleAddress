@@ -13,7 +13,12 @@ namespace UI.Controllers
 {
     public class UsersController : Controller
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        private UnitOfWork _unitOfWork = new UnitOfWork();
+        
+        public UsersController(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         //private readonly ModelContext _context;
 
@@ -24,7 +29,7 @@ namespace UI.Controllers
 
         public ViewResult Index()
         {
-            var users = unitOfWork.UserRepository.Get();
+            var users = _unitOfWork.UserRepository.Get();
             return View(users.ToList());
         }
 

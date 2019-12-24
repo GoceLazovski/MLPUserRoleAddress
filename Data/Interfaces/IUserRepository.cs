@@ -1,17 +1,18 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Data.Interfaces
 {
-    public interface IUserRepository: IDisposable
+    public interface IUserRepository
     {
-        IEnumerable<User> Get(,,);
-        User GetUserById(int Id);
+        IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "");
+        User GetById(int Id);
         void Insert(User user);
         void Delete(int Id);
         void Update(User user);
-        void Save();
     }
 }

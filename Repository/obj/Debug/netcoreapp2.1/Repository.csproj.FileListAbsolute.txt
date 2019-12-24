@@ -10,3 +10,15 @@ C:\Users\goce.lazovski\Desktop\test2017\MLPUserRoleAddress\Repository\bin\Debug\
 C:\Users\goce.lazovski\Desktop\test2017\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.csproj.CopyComplete
 C:\Users\goce.lazovski\Desktop\test2017\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.dll
 C:\Users\goce.lazovski\Desktop\test2017\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.pdb
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\bin\Debug\netcoreapp2.1\Repository.deps.json
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\bin\Debug\netcoreapp2.1\Repository.dll
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\bin\Debug\netcoreapp2.1\Repository.pdb
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\bin\Debug\netcoreapp2.1\Data.dll
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\bin\Debug\netcoreapp2.1\Data.pdb
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.csprojAssemblyReference.cache
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.csproj.CoreCompileInputs.cache
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.AssemblyInfoInputs.cache
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.AssemblyInfo.cs
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.csproj.CopyComplete
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.dll
+C:\Users\goce.lazovski\Documents\GitHub\MLPUserRoleAddress\Repository\obj\Debug\netcoreapp2.1\Repository.pdb

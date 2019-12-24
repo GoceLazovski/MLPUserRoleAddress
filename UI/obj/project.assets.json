@@ -12659,11 +12659,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\UI\\UI.csproj",
+      "projectUniqueName": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\UI\\UI.csproj",
       "projectName": "UI",
-      "projectPath": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\UI\\UI.csproj",
+      "projectPath": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\UI\\UI.csproj",
       "packagesPath": "C:\\Users\\goce.lazovski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\UI\\obj\\",
+      "outputPath": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -12684,8 +12684,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\Repository\\Repository.csproj": {
-              "projectPath": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\Repository\\Repository.csproj"
+            "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\Repository\\Repository.csproj": {
+              "projectPath": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\Repository\\Repository.csproj"
             }
           }
         }

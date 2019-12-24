@@ -696,11 +696,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\Data\\Data.csproj",
+      "projectUniqueName": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\Data\\Data.csproj",
       "projectName": "Data",
-      "projectPath": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\Data\\Data.csproj",
+      "projectPath": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\Data\\Data.csproj",
       "packagesPath": "C:\\Users\\goce.lazovski\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\goce.lazovski\\Desktop\\test2017\\MLPUserRoleAddress\\Data\\obj\\",
+      "outputPath": "C:\\Users\\goce.lazovski\\Documents\\GitHub\\MLPUserRoleAddress\\Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

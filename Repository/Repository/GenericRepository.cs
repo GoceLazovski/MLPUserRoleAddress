@@ -43,7 +43,7 @@ namespace Repository.Repository
             }
         }
 
-        public virtual TEntity GetById(object Id)
+        public virtual TEntity GetById(int Id)
         {
             return dbSet.Find(Id);
         }
@@ -53,7 +53,7 @@ namespace Repository.Repository
             dbSet.Add(entity);
         }
 
-        public virtual void Delete (object Id)
+        public virtual void Delete (int Id)
         {
             TEntity entityToDelete = dbSet.Find(Id);
             Delete(entityToDelete);
