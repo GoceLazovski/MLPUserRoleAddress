@@ -13,9 +13,9 @@ namespace UI.Controllers
 {
     public class UsersController : Controller
     {
-        private UnitOfWork _unitOfWork = new UnitOfWork();
+        private readonly IUnitOfWork _unitOfWork;
         
-        public UsersController(UnitOfWork unitOfWork)
+        public UsersController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

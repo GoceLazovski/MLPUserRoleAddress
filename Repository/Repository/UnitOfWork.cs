@@ -3,17 +3,20 @@ using Repository.Context;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Data.Interfaces;
 
 namespace Repository.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private ModelContext context = new ModelContext();
-        private UserRepository userRepository;
-        private RoleRepository roleRepository;
-        private AddressRepository addressRepository;
+        private IUserRepository userRepository;
+        private IRoleRepository roleRepository;
+        private IAddressRepository addressRepository;
 
-        public UserRepository UserRepository
+        //private GenericRepository<User> userRepository;
+
+        public /*GenericRepository<User>*/ IUserRepository UserRepository
         {
             get
             {
@@ -25,7 +28,7 @@ namespace Repository.Repository
             }
         }
 
-        public RoleRepository RoleRepository
+        public IRoleRepository RoleRepository
         {
             get
             {
@@ -37,7 +40,7 @@ namespace Repository.Repository
             }
         }
 
-        public AddressRepository AddressRepository
+        public IAddressRepository AddressRepository
         {
             get
             {

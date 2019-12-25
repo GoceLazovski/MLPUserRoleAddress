@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Context;
+using Repository.Repository;
 
 namespace UI
 {
@@ -36,7 +38,10 @@ namespace UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IRoleRepository, RoleRepository>();
+            services.AddSingleton<IAddressRepository, AddressRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
