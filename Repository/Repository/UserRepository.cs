@@ -38,5 +38,17 @@ namespace Repository.Repository
             var modelContext = _context.Users.Include(u => u.Role);
             return base.GetById(Id);
         }
+
+        public override void Delete(User entityToDelete)
+        {
+            var modelContext = _context.Users.Include(u => u.Role);
+            base.Delete(entityToDelete);
+        }
+
+        public override void Update(User entityToUpdate)
+        {
+            var modelContext = _context.Users.Include(u => u.Role);
+            base.Update(entityToUpdate);
+        }
     }
 }

@@ -12,7 +12,8 @@ namespace Data.Interfaces
         IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "");
         User GetById(int Id);
         void Insert(User user);
-        void Delete(int Id);
+        void Get(int Id);
         void Update(User user);
+        void Delete(User user);
     }
 }

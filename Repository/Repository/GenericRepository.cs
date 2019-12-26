@@ -53,7 +53,7 @@ namespace Repository.Repository
             dbSet.Add(entity);
         }
 
-        public virtual void Delete (int Id)
+        public virtual void Get (int Id)
         {
             TEntity entityToDelete = dbSet.Find(Id);
             Delete(entityToDelete);

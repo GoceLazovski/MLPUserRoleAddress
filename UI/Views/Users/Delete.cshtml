@@ -1,4 +1,5 @@
 ﻿@model Data.Models.User
+@*@model UI.Models.ViewModelUser*@
 
 @{
     ViewData["Title"] = "Delete";
@@ -39,7 +40,7 @@
             @Html.DisplayNameFor(model => model.Role)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Role.Id)
+            @Html.DisplayFor(model => model.Role.Name)
         </dd>
     </dl>
     
