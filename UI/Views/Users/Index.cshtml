@@ -1,5 +1,5 @@
-﻿@model IEnumerable<UI.Models.ViewModelUser>
-@*@model IEnumerable<Data.Models.User>*@
+﻿@*@model IEnumerable<UI.Models.ViewModelUser>*@
+@model IEnumerable<Data.Models.User>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,9 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
-            @*<th>
+            <th>
                     @Html.DisplayNameFor(model => model.Role)
-                </th>*@
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -47,9 +47,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Password)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Role.Id)
-                    </td>*@
+                <td>
+                        @Html.DisplayFor(modelItem => item.Role.Name)
+                    </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

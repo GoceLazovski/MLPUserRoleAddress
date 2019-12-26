@@ -10,6 +10,6 @@ namespace UI.Models
         public int Id { get; set; }
         public string AddressStreetAndNumber { get; set; }
 
-        //public ICollection<UserAddress> UserAddresses { get; set; }
+        public ICollection<ViewModelUserAddresses> UserAddresses { get; set; }
     }
 }

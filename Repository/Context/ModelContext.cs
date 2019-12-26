@@ -9,10 +9,6 @@ namespace Repository.Context
 {
     public class ModelContext : DbContext
     {
-        public ModelContext()
-        {
-        }
-
         public ModelContext(DbContextOptions<ModelContext> options) : base(options)
         {
         }
@@ -38,6 +34,12 @@ namespace Repository.Context
                 .HasOne(ua => ua.Address)
                 .WithMany(a => a.UserAddresses)
                 .HasForeignKey(ua => ua.AddressId);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            builder.UseSqlServer("Server=GOCEL-L560\\SQLEXPRESS;Database=MLPUserRoleAddress;Trusted_Connection=True;MultipleActiveResultSets=true");
+            base.OnConfiguring(builder);
         }
     }
 }

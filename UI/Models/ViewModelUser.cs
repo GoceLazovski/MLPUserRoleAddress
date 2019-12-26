@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,8 +15,9 @@ namespace UI.Models
         public string Password { get; set; }
 
         public int? RoleId { get; set; }
-        //public Role Role { get; set; }
 
-        //public ICollection<UserAddress> UserAddresses { get; set; }
+        public IEnumerable<SelectListItem> Roles { get; set; }
+
+        public ICollection<ViewModelUserAddresses> UserAddresses { get; set; }
     }
 }

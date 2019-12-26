@@ -20,5 +20,23 @@ namespace Repository.Repository
             this._context = _context;
             this._dbSet = _context.Set<User>();
         }
+
+        public override IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "")
+        {
+            var modelContext = _context.Users.Include(u => u.Role);
+            
+            return base.Get(filter, orderBy, includeProperties);
+        }
+
+        public override void Insert(User entity)
+        {
+            base.Insert(entity);
+        }
+
+        public override User GetById(int Id)
+        {
+            var modelContext = _context.Users.Include(u => u.Role);
+            return base.GetById(Id);
+        }
     }
 }

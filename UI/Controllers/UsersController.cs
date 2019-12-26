@@ -20,16 +20,16 @@ namespace UI.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //private readonly ModelContext _context;
-
-        //public UsersController(ModelContext context)
+        //public ViewResult Index()
         //{
-        //    _context = context;
+        //    var users = _unitOfWork.UserRepository.Get();
+        //    return View(users.ToList());
         //}
 
         public ViewResult Index()
         {
             var users = _unitOfWork.UserRepository.Get();
+            
             return View(users.ToList());
         }
 
@@ -40,48 +40,40 @@ namespace UI.Controllers
         //    return View(await modelContext.ToListAsync());
         //}
 
-        //// GET: Users/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Users/Details/5
+        public ViewResult Details(int id)
+        {
 
-        //    var user = await _context.Users
-        //        .Include(u => u.Role)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var user = _unitOfWork.UserRepository.GetById(id);
+            //.Include(u => u.Role)
+            //.FirstOrDefaultAsync(m => m.Id == id);
+            
+            return View(user);
+        }
 
-        //    return View(user);
-        //}
+        // GET: Users/Create
+        public IActionResult Create()
+        {
+            ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            return View();
+        }
 
-        //// GET: Users/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id");
-        //    return View();
-        //}
-
-        //// POST: Users/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,UserName,FirstName,LastName,Password,RoleId")] User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(user);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-        //    return View(user);
-        //}
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  IActionResult Create([Bind("Id,UserName,FirstName,LastName,Password,RoleId")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.UserRepository.Insert(user);
+                 _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            return View(user);
+        }
 
         //// GET: Users/Edit/5
         //public async Task<IActionResult> Edit(int? id)

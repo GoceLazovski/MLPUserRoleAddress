@@ -9,14 +9,12 @@ namespace Repository.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ModelContext context = new ModelContext();
+        private ModelContext context = new ModelContext(new Microsoft.EntityFrameworkCore.DbContextOptions<ModelContext>());
         private IUserRepository userRepository;
         private IRoleRepository roleRepository;
         private IAddressRepository addressRepository;
 
-        //private GenericRepository<User> userRepository;
-
-        public /*GenericRepository<User>*/ IUserRepository UserRepository
+        public IUserRepository UserRepository
         {
             get
             {
