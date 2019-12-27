@@ -19,28 +19,11 @@ namespace Repository.Repository
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get()
         {
-            IQueryable<TEntity> query = dbSet;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+            IQueryable<TEntity> query = dbSet;            
+            return query.ToList();
+            
         }
 
         public virtual TEntity GetById(int Id)
@@ -52,13 +35,7 @@ namespace Repository.Repository
         {
             dbSet.Add(entity);
         }
-
-        public virtual void Get (int Id)
-        {
-            TEntity entityToDelete = dbSet.Find(Id);
-            Delete(entityToDelete);
-        }
-
+                
         public virtual void Delete (TEntity entityToDelete)
         {
             if(context.Entry(entityToDelete).State == EntityState.Detached)

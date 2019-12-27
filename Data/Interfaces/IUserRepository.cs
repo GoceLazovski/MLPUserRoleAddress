@@ -9,11 +9,11 @@ namespace Data.Interfaces
 {
     public interface IUserRepository
     {
-        IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "");
-        User GetById(int Id);
-        void Insert(User user);
-        void Get(int Id);
+        IEnumerable<User> Get();
+        void Insert(User user);       
         void Update(User user);
         void Delete(User user);
+
+        User GetUserById(int id);
     }
 }

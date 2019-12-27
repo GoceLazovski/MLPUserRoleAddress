@@ -15,6 +15,7 @@ namespace UI.Models
         public string Password { get; set; }
 
         public int? RoleId { get; set; }
+        public ViewModelRole Role { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }
 

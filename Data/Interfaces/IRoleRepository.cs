@@ -9,11 +9,12 @@ namespace Data.Interfaces
 {
     public interface IRoleRepository
     {
-        IEnumerable<Role> Get(Expression<Func<Role, bool>> filter = null, Func<IQueryable<Role>, IOrderedQueryable<Role>> orderBy = null, string includeProperties = "");
-        Role GetById(int Id);
-        void Insert(Role role);
-        void Get(int Id);
+        IEnumerable<Role> Get();        
+        void Insert(Role role);        
         void Update(Role role);
         void Delete(Role role);
+        Role GetById(int Id);
+
+        Role GetRoleWithItsUsersById(int id);
     }
 }

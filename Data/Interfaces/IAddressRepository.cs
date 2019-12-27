@@ -9,11 +9,12 @@ namespace Data.Interfaces
 {
     public interface IAddressRepository
     {
-        IEnumerable<Address> Get(Expression<Func<Address, bool>> filter = null, Func<IQueryable<Address>, IOrderedQueryable<Address>> orderBy = null, string includeProperties = "");
+        IEnumerable<Address> Get();
         Address GetById(int Id);
-        void Insert(Address address);
-        void Get(int Id);
+        void Insert(Address address);        
         void Update(Address address);
         void Delete(Address address);
+
+        Address GetAddressByIdWithItsUsers(int id);
     }
 }

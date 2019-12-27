@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Repository.Repository
@@ -18,6 +19,12 @@ namespace Repository.Repository
             this._context = _context;
             this._dbSet = _context.Set<Address>();
         }
-                
+
+        public Address GetAddressByIdWithItsUsers(int id)
+        {
+            var address = _context.Addresses.Include(a => a.UserAddresses).ToList().FirstOrDefault(a => a.Id == id);
+            return address;
+        }
+
     }
 }

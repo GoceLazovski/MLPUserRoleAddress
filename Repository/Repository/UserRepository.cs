@@ -21,34 +21,40 @@ namespace Repository.Repository
             this._dbSet = _context.Set<User>();
         }
 
-        public override IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "")
+        public User GetUserById(int id)
         {
-            var modelContext = _context.Users.Include(u => u.Role);
-            
-            return base.Get(filter, orderBy, includeProperties);
+            var user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == id);
+                return user;
         }
+                
+        //public override IEnumerable<User> Get(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "")
+        //{
+        //    var modelContext = _context.Users.Include(u => u.Role);
 
-        public override void Insert(User entity)
-        {
-            base.Insert(entity);
-        }
+        //    return base.Get(filter, orderBy, includeProperties);
+        //}
 
-        public override User GetById(int Id)
-        {
-            var modelContext = _context.Users.Include(u => u.Role);
-            return base.GetById(Id);
-        }
+        //public override void Insert(User entity)
+        //{
+        //    base.Insert(entity);
+        //}
 
-        public override void Delete(User entityToDelete)
-        {
-            var modelContext = _context.Users.Include(u => u.Role);
-            base.Delete(entityToDelete);
-        }
+        //public override User GetById(int Id)
+        //{
+        //    var modelContext = _context.Users.Include(u => u.Role);
+        //    return base.GetById(Id);
+        //}
 
-        public override void Update(User entityToUpdate)
-        {
-            var modelContext = _context.Users.Include(u => u.Role);
-            base.Update(entityToUpdate);
-        }
+        //public override void Delete(User entityToDelete)
+        //{
+        //    var modelContext = _context.Users.Include(u => u.Role);
+        //    base.Delete(entityToDelete);
+        //}
+
+        //public override void Update(User entityToUpdate)
+        //{
+        //    var modelContext = _context.Users.Include(u => u.Role);
+        //    base.Update(entityToUpdate);
+        //}
     }
 }

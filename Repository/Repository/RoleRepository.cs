@@ -5,6 +5,7 @@ using System.Text;
 using Data.Interfaces;
 using Repository.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Repository.Repository
 {
@@ -17,6 +18,12 @@ namespace Repository.Repository
         {
             this._context = _context;
             this._dbSet = _context.Set<Role>();
+        }
+
+        public Role GetRoleWithItsUsersById(int id)
+        {
+            var role = _context.Roles.Include(r => r.Users).ToList().FirstOrDefault(r => r.Id == id);
+            return role;
         }
     }
 }

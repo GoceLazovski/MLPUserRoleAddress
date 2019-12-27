@@ -22,7 +22,7 @@ namespace UI.Controllers
         }
       
         public ViewResult Index()
-        {
+        {          
             var users = _unitOfWork.UserRepository.Get();
             
             return View(users.ToList());
@@ -30,9 +30,21 @@ namespace UI.Controllers
       
         // GET: Users/Details/5
         public ViewResult Details(int id)
-        {
-            var user = _unitOfWork.UserRepository.GetById(id);
-                      
+        {            
+            var user = _unitOfWork.UserRepository.GetUserById(id);
+
+            ViewModelUser viewModelUser = new ViewModelUser
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                //Role = user.Role(r => new ViewModelRole
+                //{
+                //    Id = r.Id,
+                //    Name = r.Name
+                //})
+            };
+
             return View(user);
         }
 
@@ -66,19 +78,19 @@ namespace UI.Controllers
                  _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
             return View(u);
         }
 
         // GET: Users/Edit/5
         public IActionResult Edit(int id)
         {
-            var user = _unitOfWork.UserRepository.GetById(id);
+            var user = _unitOfWork.UserRepository.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
             return View(user);
         }
 
@@ -107,14 +119,14 @@ namespace UI.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
             return View(u);
         }
 
         // GET: Users/Delete/5
         public  IActionResult Delete(int id)
         {
-            var user =  _unitOfWork.UserRepository.GetById(id);
+            var user =  _unitOfWork.UserRepository.GetUserById(id);
           
             return View(user);
         }
@@ -124,7 +136,7 @@ namespace UI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var user = _unitOfWork.UserRepository.GetById(id);
+            var user = _unitOfWork.UserRepository.GetUserById(id);
             _unitOfWork.UserRepository.Delete(user);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
