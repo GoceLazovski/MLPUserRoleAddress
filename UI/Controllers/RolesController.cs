@@ -90,7 +90,12 @@ namespace UI.Controllers
             {
                 return NotFound();
             }
-            return View(role);
+            ViewModelRole vmRole = new ViewModelRole
+            {
+                Name = role.Name,
+                Id = role.Id                
+            };
+            return View(vmRole);
         }
 
         // POST: Roles/Edit/5
@@ -98,16 +103,15 @@ namespace UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ViewModelRole role)
+        public IActionResult Edit(ViewModelRole vmRole)
         {
-            Role r = new Role
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
+            var roletoedit = _unitOfWork.RoleRepository.GetById(vmRole.Id);
+            roletoedit.Name = vmRole.Name;
+            //
+
             if (ModelState.IsValid)
             {                
-                _unitOfWork.RoleRepository.Update(r);
+                _unitOfWork.RoleRepository.Update(roletoedit);
                 _unitOfWork.Save();
                                 
                 return RedirectToAction(nameof(Index));

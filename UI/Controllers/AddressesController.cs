@@ -8,14 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using Data.Models;
 using Repository.Context;
 using Repository.Repository;
+using UI.Models;
 
 namespace UI.Controllers
 {
     public class AddressesController : Controller
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddressesController(UnitOfWork unitOfWork)
+        public AddressesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -35,110 +36,116 @@ namespace UI.Controllers
                 return NotFound();
             }
 
+            ViewModelAddress a = new ViewModelAddress
+            {
+                AddressStreetAndNumber = address.AddressStreetAndNumber
+            };
+
+            return View(a);
+        }
+
+        // GET: Addresses/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Addresses/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ViewModelAddress address)
+        {
+            Address a = new Address
+            {
+                AddressStreetAndNumber = address.AddressStreetAndNumber
+            };
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.AddressRepository.Insert(a);
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
             return View(address);
         }
 
-        //// GET: Addresses/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        // GET: Addresses/Edit/5
+        public IActionResult Edit(int id)
+        {            
+            var address = _unitOfWork.AddressRepository.GetById(id);
+            if (address == null)
+            {
+                return NotFound();
+            }
 
-        //// POST: Addresses/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,AddressStreetAndNumber")] Address address)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(address);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(address);
-        //}
+            ViewModelAddress a = new ViewModelAddress
+            {
+                Id = address.Id,
+                AddressStreetAndNumber = address.AddressStreetAndNumber,
+                UserAddresses = address.UserAddresses.Select(ua => new ViewModelUserAddresses
+                {
+                    AddressId = ua.AddressId,                    
+                    UserId = ua.UserId
 
-        //// GET: Addresses/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+                }).ToList()
+            };
+            return View(a);
+        }
 
-        //    var address = await _context.Addresses.FindAsync(id);
-        //    if (address == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(address);
-        //}
+        // POST: Addresses/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, /*[Bind("Id,AddressStreetAndNumber")]*/ ViewModelAddress address)
+        {
+            if (ModelState.IsValid)
+            {                
+                Address a = new Address
+                {
+                    AddressStreetAndNumber = address.AddressStreetAndNumber
+                };
+                _unitOfWork.AddressRepository.Update(a);
+                _unitOfWork.Save();
+                                   
+                return RedirectToAction(nameof(Index));
+            }
+            return View(address);
+        }
 
-        //// POST: Addresses/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,AddressStreetAndNumber")] Address address)
-        //{
-        //    if (id != address.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Addresses/Delete/5
+        public IActionResult Delete(int id)
+        {
+            var address = _unitOfWork.AddressRepository.GetById(id);
+            if (address == null)
+            {
+                return NotFound();
+            }
+            ViewModelAddress a = new ViewModelAddress
+            {
+                Id = address.Id,
+                AddressStreetAndNumber = address.AddressStreetAndNumber,
+                UserAddresses = address.UserAddresses.Select(ua => new ViewModelUserAddresses
+                {
+                    AddressId = ua.AddressId,
+                    UserId = ua.UserId
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(address);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!AddressExists(address.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(address);
-        //}
+                }).ToList()
+            };
+            return View(a);
+        }
 
-        //// GET: Addresses/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var address = await _context.Addresses
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (address == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(address);
-        //}
-
-        //// POST: Addresses/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var address = await _context.Addresses.FindAsync(id);
-        //    _context.Addresses.Remove(address);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: Addresses/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var address = _unitOfWork.AddressRepository.GetById(id);
+            _unitOfWork.AddressRepository.Delete(address);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
 
         //private bool AddressExists(int id)
         //{

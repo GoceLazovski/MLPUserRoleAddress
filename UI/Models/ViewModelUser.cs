@@ -14,10 +14,13 @@ namespace UI.Models
         public string LastName { get; set; }
         public string Password { get; set; }
 
+        public int[] SelectedAddressesId { get; set; }
         public int? RoleId { get; set; }
+
         public ViewModelRole Role { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }
+        public IEnumerable<SelectListItem> Addresses { get; set; }
 
         public ICollection<ViewModelUserAddresses> UserAddresses { get; set; }
     }

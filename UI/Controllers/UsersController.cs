@@ -35,23 +35,27 @@ namespace UI.Controllers
 
             ViewModelUser viewModelUser = new ViewModelUser
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.UserName,
-                //Role = user.Role(r => new ViewModelRole
+                RoleId = user.RoleId,
+                Role = user.Role//.Select(r => new ViewModelRole
                 //{
                 //    Id = r.Id,
                 //    Name = r.Name
-                //})
+                //}).ToList()
             };
 
-            return View(user);
+            return View(viewModelUser);
         }
 
         // GET: Users/Create
         public IActionResult SignIn()
         {
             ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            ViewData["AddressId"] = new SelectList(_unitOfWork.AddressRepository.Get(), "Id", "AddressStreetAndNumber");
+            var a = ViewData["AddressId"];
             return View();
         }
 
@@ -64,21 +68,34 @@ namespace UI.Controllers
         {
             var u = new User
             {
-                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Password = user.Password,
                 RoleId = user.RoleId,
-                UserName = user.UserName//,
-                //UserAddresses = user.UserAddresses
+                UserName = user.UserName
             };
+
+            foreach(int addid in user.SelectedAddressesId)
+            {
+                var address = _unitOfWork.AddressRepository.GetById(addid);
+
+                var adduser = new UserAddress
+                {
+                    Address = address,
+                    User = u
+                };
+
+                u.UserAddresses.Add(adduser);
+            }
+            
+
             if (ModelState.IsValid)
             {
                 _unitOfWork.UserRepository.Insert(u);
                  _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
+            
             return View(u);
         }
 
@@ -90,8 +107,20 @@ namespace UI.Controllers
             {
                 return NotFound();
             }
+            ViewModelUser viewModelUser = new ViewModelUser
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                //Role = user.Role(r => new ViewModelRole
+                //{
+                //    Id = r.Id,
+                //    Name = r.Name
+                //})
+            };
+
             //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
-            return View(user);
+            return View(viewModelUser);
         }
 
         // POST: Users/Edit/5
@@ -99,28 +128,30 @@ namespace UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(/*[Bind("Id,UserName,FirstName,LastName,Password,RoleId")]*/ ViewModelUser user)
+        public IActionResult Edit(/*[Bind("Id,UserName,FirstName,LastName,Password,RoleId")]*/ ViewModelUser viewModelUser)
         {
-            var u = new User
+            var userToEdit = _unitOfWork.UserRepository.GetUserById(viewModelUser.Id);
+            userToEdit.UserName = viewModelUser.UserName;
+            userToEdit.FirstName = viewModelUser.FirstName;
+            userToEdit.LastName = viewModelUser.LastName;
+            userToEdit.Password = viewModelUser.Password;
+            userToEdit.RoleId = viewModelUser.RoleId;
+            //userToEdit.Role = viewModelUser.Role;
+            userToEdit.UserAddresses = viewModelUser.UserAddresses.Select(ua => new UserAddress
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Password = user.Password,
-                RoleId = user.RoleId,
-                UserName = user.UserName//,
-                //UserAddresses = user.UserAddresses
-            };
-            
+                UserId = ua.UserId,
+                AddressId = ua.AddressId
+            }).ToList();
+                        
             if (ModelState.IsValid)
             {                
-                _unitOfWork.UserRepository.Update(u);
+                _unitOfWork.UserRepository.Update(userToEdit);
                 _unitOfWork.Save();
                 
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
-            return View(u);
+            return View(userToEdit);
         }
 
         // GET: Users/Delete/5
