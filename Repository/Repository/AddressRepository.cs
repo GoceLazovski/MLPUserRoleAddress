@@ -22,7 +22,7 @@ namespace Repository.Repository
 
         public Address GetAddressByIdWithItsUsers(int id)
         {
-            var address = _context.Addresses.Include(a => a.UserAddresses).ToList().FirstOrDefault(a => a.Id == id);
+            var address = _context.Addresses.Include(ua => ua.UserAddresses).ThenInclude(u => u.User).ToList().FirstOrDefault(a => a.Id == id);
             return address;
         }
 

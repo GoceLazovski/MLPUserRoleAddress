@@ -38,7 +38,17 @@ namespace UI.Controllers
 
             ViewModelAddress a = new ViewModelAddress
             {
-                AddressStreetAndNumber = address.AddressStreetAndNumber
+                AddressStreetAndNumber = address.AddressStreetAndNumber,
+                UserAddresses = address.UserAddresses.Select(ua => new ViewModelUserAddresses
+                {
+                    AddressId = ua.AddressId,
+                    UserId = ua.UserId,
+                    User = new ViewModelUser
+                    {
+                        Id = ua.User.Id,
+                        UserName = ua.User.UserName
+                    }
+                }).ToList()
             };
 
             return View(a);

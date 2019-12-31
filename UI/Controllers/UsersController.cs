@@ -40,11 +40,19 @@ namespace UI.Controllers
                 LastName = user.LastName,
                 UserName = user.UserName,
                 RoleId = user.RoleId,
-                Role = user.Role//.Select(r => new ViewModelRole
-                //{
-                //    Id = r.Id,
-                //    Name = r.Name
-                //}).ToList()
+                Role = new ViewModelRole
+                {
+                    Name = user.Role.Name
+                },
+                UserAddresses = user.UserAddresses.Select(ua => new ViewModelUserAddresses
+                {
+                    UserId = ua.UserId,
+                    AddressId = ua.AddressId,
+                    Address = new ViewModelAddress
+                    {
+                        AddressStreetAndNumber = ua.Address.AddressStreetAndNumber
+                    }
+                }).ToList()
             };
 
             return View(viewModelUser);
@@ -55,7 +63,7 @@ namespace UI.Controllers
         {
             ViewData["RoleId"] = new SelectList(_unitOfWork.RoleRepository.Get(), "Id", "Name");
             ViewData["AddressId"] = new SelectList(_unitOfWork.AddressRepository.Get(), "Id", "AddressStreetAndNumber");
-            var a = ViewData["AddressId"];
+            //var a = ViewData["AddressId"];
             return View();
         }
 

@@ -23,7 +23,7 @@ namespace Repository.Repository
 
         public User GetUserById(int id)
         {
-            var user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.Include(u => u.Role).Include(u => u.UserAddresses).ThenInclude(ua => ua.Address).ToList().FirstOrDefault(u => u.Id == id);
                 return user;
         }
                 

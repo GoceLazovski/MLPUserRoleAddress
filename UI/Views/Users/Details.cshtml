@@ -42,6 +42,39 @@
         </dd>
     </dl>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAddresses)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserAddresses)
+        {
+        <tr>      
+            <td>
+                @Html.HiddenFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.AddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.AddressStreetAndNumber)
+            </td>
+            <td>
+            <a asp-action="Users/Edit" asp-route-userid="@item.UserId" asp-route-addressid="@item.AddressId">Edit</a> |
+            <a asp-action="Users/Details" asp-route-userid="@item.UserId" asp-route-addressid="@item.AddressId">Details</a> |
+            <a asp-action="Users/Delete" asp-route-userid="@item.UserId" asp-route-addressid="@item.AddressId">Delete</a>
+        </td>
+        </tr>
+        }
+    </tbody>
+</table>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
