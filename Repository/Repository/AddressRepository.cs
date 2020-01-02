@@ -25,6 +25,5 @@ namespace Repository.Repository
             var address = _context.Addresses.Include(ua => ua.UserAddresses).ThenInclude(u => u.User).ToList().FirstOrDefault(a => a.Id == id);
             return address;
         }
-
     }
 }

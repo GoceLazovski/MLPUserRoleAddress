@@ -1,15 +1,16 @@
 ﻿@*@model IEnumerable<UI.Models.ViewModelUser>*@
 @model IEnumerable<Data.Models.User>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+        <a asp-action="Create">Create New</a>
+    </p>*@
 <table class="table">
     <thead>
         <tr>
@@ -27,14 +28,14 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Role)
-            </th>   
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="user_@Html.DisplayFor(modelItem => item.Id)">
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
@@ -50,12 +51,74 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Role.Name)
                 </td>
+                <td class="userId">
+                    @Html.HiddenFor(modelItem => item.Id)
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <button id="Delete" class="btn-link">Delete</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div id="dialog-formDelete" title="Delete">
+    <p class="validateTips"></p>
+    <form>
+        <fieldset>
+            <input type="hidden" id="UserId" name="userId" value="">
+        </fieldset>
+    </form>
+</div>
+
+<script>
+    debugger;
+    var dialogDelete;
+    dialogDelete = $("#dialog-formDelete").dialog({
+        autoOpen: false,
+        height: 100,
+        width: 100,
+        modal: true,
+        buttons: {
+            "Delete User": DeleteUser
+        },
+        close: function () {
+        }
+    });
+    debugger;
+    $(document).on("click", "#Delete.btn-link", function () {
+        dialogDelete.dialog("open");
+        console.log($(this).parent().parent());
+        var id = $(this).parent().parent().find(".userId").text();
+
+        $.ajax({
+            type: 'GET',
+            url: '/Users/Delete/' + id,
+            success: function (result) {
+                $('#UserId').val(result.id);
+            }
+        });
+    });
+
+    function DeleteUser() {
+
+        var user = {
+            id: $('#UserIdD').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Users/Delete',
+            data: user,
+            success: function (data) {
+                $("#user_" + user.id).remove();
+                alert("ok");
+                dialogDelete.dialog("close");
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
